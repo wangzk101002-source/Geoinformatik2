@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Web-GIS-Prototyp für Stadtentwicklung gestartet",
+    "date": "12. März 2026",
+    "image": "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=900&q=80",
+    "excerpt": "Ich habe einen ersten interaktiven Kartenprototyp zur Analyse städtischer Entwicklungslinien erstellt und dabei räumliche Muster mit Karten- und Datenschnittstellen kombiniert."
+  },
+  {
+    "title": "Workshop zu OpenStreetMap und Geodaten",
+    "date": "28. Februar 2026",
+    "image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80",
+    "excerpt": "Im Rahmen eines Workshops habe ich mich mit OpenStreetMap-Daten, Kartenvisualisierung und geospatialen Datensätzen beschäftigt und meine ersten eigenen Visualisierungen aufgebaut."
+  },
+  {
+    "title": "Erstes eigenes Projektportfolio online",
+    "date": "07. Januar 2026",
+    "image": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80",
+    "excerpt": "Meine ersten Web-Map- und Webseitenideen wurden in einer eigenen Projektseite zusammengestellt und mit Karten- und Analysebeispielen ergänzt."
+  }
+]

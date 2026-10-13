@@ -7,6 +7,8 @@
     <style>
       :root {
         --bg: #f5f7f9;
+        --bg-gradient-start: #f7fafc;
+        --bg-gradient-end: #eef3f7;
         --panel: #ffffff;
         --panel-alt: #edf3f8;
         --text: #17212b;
@@ -15,6 +17,20 @@
         --accent-soft: #dfeef9;
         --stroke: #d9e3ee;
         --shadow: 0 18px 36px rgba(17, 36, 52, 0.08);
+      }
+
+      body.dark {
+        --bg: #0c1721;
+        --bg-gradient-start: #122330;
+        --bg-gradient-end: #0a141d;
+        --panel: #152a3b;
+        --panel-alt: #1d3549;
+        --text: #ecf4ff;
+        --muted: #bfd0df;
+        --accent: #94c9ff;
+        --accent-soft: #1a3351;
+        --stroke: #244866;
+        --shadow: 0 20px 40px rgba(2, 8, 14, 0.42);
       }
 
       * {
@@ -28,9 +44,10 @@
       body {
         margin: 0;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background: linear-gradient(180deg, #f7fafc 0%, #eef3f7 100%);
+        background: linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
         color: var(--text);
         line-height: 1.6;
+        transition: background-color 0.25s ease, color 0.25s ease;
       }
 
       img {
@@ -60,13 +77,19 @@
         backdrop-filter: blur(8px);
       }
 
+      body.dark .site-header {
+        background: rgba(12, 23, 33, 0.8);
+      }
+
       .site-header .inner {
         max-width: 1100px;
         margin: 0 auto;
         padding: 18px 20px;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
+        gap: 16px;
+        position: relative;
       }
 
       .brand {
@@ -74,12 +97,103 @@
         font-weight: 700;
         letter-spacing: 0.06em;
         text-transform: uppercase;
+        position: absolute;
+        left: 20px;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        justify-content: center;
+      }
+
+      .theme-toggle {
+        border: 1px solid var(--stroke);
+        background: var(--panel);
+        color: var(--text);
+        border-radius: 999px;
+        padding: 0.55rem 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+        transition: transform 0.2s ease, background-color 0.2s ease;
+      }
+
+      .theme-toggle:hover,
+      .theme-toggle:focus-visible {
+        transform: translateY(-1px);
+      }
+
+      .theme-toggle:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .toggle-icon {
+        font-size: 1.1rem;
       }
 
       .nav {
         display: flex;
         gap: 18px;
         font-size: 0.95rem;
+        justify-content: center;
+      }
+
+      .tab-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 28px 0 8px;
+      }
+
+      .tab-button {
+        border: 1px solid var(--stroke);
+        background: var(--panel);
+        color: var(--text);
+        border-radius: 999px;
+        padding: 0.7rem 1.1rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .tab-button:hover,
+      .tab-button:focus-visible {
+        border-color: var(--accent);
+        outline: none;
+      }
+
+      .tab-button.active {
+        background: var(--accent);
+        color: #ffffff;
+        border-color: var(--accent);
+        box-shadow: var(--shadow);
+      }
+
+      .tab-panel {
+        display: none;
+        animation: fadeIn 0.25s ease;
+      }
+
+      .tab-panel.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .nav a {
@@ -184,6 +298,51 @@
         gap: 22px;
       }
 
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .news-card {
+        display: flex;
+        flex-direction: column;
+        background: var(--panel);
+        border: 1px solid var(--stroke);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .news-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+      }
+
+      .news-body {
+        padding: 18px;
+      }
+
+      .news-date {
+        margin: 0 0 8px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .news-card h3 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+      }
+
+      .news-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
       .card {
         display: flex;
         flex-direction: column;
@@ -221,10 +380,51 @@
         color: var(--muted);
       }
 
+      .contact-float {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+
+      .contact-link {
+        width: 48px;
+        height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: var(--panel);
+        color: var(--text);
+        border: 1px solid var(--stroke);
+        box-shadow: var(--shadow);
+        font-size: 1.3rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .contact-link:hover,
+      .contact-link:focus-visible {
+        transform: translateY(-2px);
+        text-decoration: none;
+      }
+
+      .contact-link:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
       @media (max-width: 760px) {
         .site-header .inner {
           flex-direction: column;
           gap: 10px;
+          position: static;
+        }
+
+        .brand {
+          position: static;
         }
 
         .nav {
@@ -246,89 +446,59 @@
     <header class="site-header">
       <div class="inner">
         <div class="brand">Ziqi Wang</div>
-        <nav class="nav" aria-label="Hauptnavigation">
-          <a href="#ueber-mich">Über mich</a>
-          <a href="#stationen">Stationen</a>
-          <a href="#projekte">Projekte</a>
-        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Wechseln zwischen Tag- und Nachtmodus" aria-pressed="false">
+            <span class="toggle-icon" aria-hidden="true">☀️</span>
+            <span class="toggle-label">Tagmodus</span>
+          </button>
+          <nav class="nav" aria-label="Hauptnavigation">
+            <a href="#ueber-mich">Über mich</a>
+            <a href="#stationen">Stationen</a>
+            <a href="#projekte">Projekte</a>
+          </nav>
+        </div>
       </div>
     </header>
 
-    <main class="container" id="ueber-mich">
-      <section class="hero" aria-label="Einleitung">
-        <div>
-          <h1>Geoinformatik mit Blick für Orte, Daten und Geschichten.</h1>
-          <p class="lead">
-            Ich arbeite an der Schnittstelle von räumlicher Analyse, Karten und nachhaltiger Forschung.
-            Meine Leidenschaft liegt darin, komplexe Geodaten verständlich zu machen und mit klaren visuellen Erzählungen nutzbar zu gestalten.
-          </p>
-          <p class="lead">
-            In Studium und Praxis beschäftige ich mich mit raumbezogenen Fragestellungen, digitalen Karten und methodischer Arbeit mit Geo- und Umweltinformationen.
-          </p>
-        </div>
+    <div class="contact-float" aria-label="Kontaktinformationen">
+      <a class="contact-link" href="https://github.com/wangzk101002-source" target="_blank" rel="noreferrer noopener" aria-label="GitHub Profil öffnen">🐙</a>
+      <a class="contact-link" href="mailto:ziqi.wang@students.hs-mainz.de" aria-label="E-Mail senden">✉️</a>
+    </div>
 
-        <figure class="portrait">
-          <img src="assets/me.jpg" alt="Portraitfotografie von Ziqi Wang" />
-          <figcaption class="figure-caption">Lehr- und Forschungsinteressen in Geoinformatik, Stadtforschung und Raumdaten.</figcaption>
-        </figure>
-      </section>
+    <main class="container">
+      <div class="tab-nav" role="tablist" aria-label="Inhaltsbereiche">
+        <button class="tab-button active" type="button" role="tab" aria-selected="true" aria-controls="panel-about" id="tab-about" data-tab="about">About</button>
+        <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-news" id="tab-news" data-tab="news">News</button>
+        <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-projects" id="tab-projects" data-tab="projects">Projects</button>
+      </div>
 
-      <section id="stationen" aria-labelledby="stationen-title">
-        <h2 class="section-heading" id="stationen-title">Stationen</h2>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Jahr</th>
-                <th>Station</th>
-                <th>Ort</th>
-                <th>Stichwort</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>2018</td>
-                <td>Abitur</td>
-                <td>Stuttgart</td>
-                <td>Grundlagen</td>
-              </tr>
-              <tr>
-                <td>2019</td>
-                <td>Praktikum</td>
-                <td>Berlin</td>
-                <td>GIS</td>
-              </tr>
-              <tr>
-                <td>2020</td>
-                <td>Studienstart</td>
-                <td>Mainz</td>
-                <td>Geoinformatik</td>
-              </tr>
-              <tr>
-                <td>2022</td>
-                <td>Projektarbeit</td>
-                <td>Freiburg</td>
-                <td>Fernerkundung</td>
-              </tr>
-              <tr>
-                <td>2023</td>
-                <td>Auslandsaufenthalt</td>
-                <td>Amsterdam</td>
-                <td>Urban Data</td>
-              </tr>
-              <tr>
-                <td>2025</td>
-                <td>Masterprojekt</td>
-                <td>Mainz</td>
-                <td>Raumanalysen</td>
-              </tr>
-            </tbody>
-          </table>
+      <section id="panel-about" class="tab-panel active" role="tabpanel" aria-labelledby="tab-about">
+        <div class="hero" aria-label="Einleitung">
+          <div>
+            <h1>Geoinformatik mit Blick für Orte, Daten und Geschichten.</h1>
+            <p class="lead">
+              Ich arbeite an der Schnittstelle von räumlicher Analyse, Karten und nachhaltiger Forschung.
+              Meine Leidenschaft liegt darin, komplexe Geodaten verständlich zu machen und mit klaren visuellen Erzählungen nutzbar zu gestalten.
+            </p>
+            <p class="lead">
+              In Studium und Praxis beschäftige ich mich mit raumbezogenen Fragestellungen, digitalen Karten und methodischer Arbeit mit Geo- und Umweltinformationen.
+            </p>
+          </div>
+
+          <figure class="portrait">
+            <img src="assets/me.jpg" alt="Portraitfotografie von Ziqi Wang" />
+            <figcaption class="figure-caption">Lehr- und Forschungsinteressen in Geoinformatik, Stadtforschung und Raumdaten.</figcaption>
+          </figure>
         </div>
       </section>
 
-      <section id="projekte" aria-labelledby="projekte-title">
-        <h2 class="section-heading" id="projekte-title">Interessen und Projekte</h2>
+      <section id="panel-news" class="tab-panel" role="tabpanel" aria-labelledby="tab-news">
+        <h2 class="section-heading">News</h2>
+        <div id="newsList" class="news-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-projects" class="tab-panel" role="tabpanel" aria-labelledby="tab-projects">
+        <h2 class="section-heading">Projects</h2>
         <div class="gallery-grid">
           <article class="card">
             <a href="https://www.openstreetmap.org/" target="_blank" rel="noreferrer noopener" aria-label="OpenStreetMap öffnen">
@@ -362,5 +532,96 @@
         </div>
       </section>
     </main>
+
+    <script>
+      const toggleButton = document.getElementById('themeToggle');
+      const toggleLabel = toggleButton.querySelector('.toggle-label');
+      const toggleIcon = toggleButton.querySelector('.toggle-icon');
+
+      function applyTheme(theme) {
+        const isDark = theme === 'dark';
+        document.body.classList.toggle('dark', isDark);
+        toggleButton.setAttribute('aria-pressed', String(isDark));
+        toggleButton.title = isDark ? 'Zum Tagmodus wechseln' : 'Zum Nachtmodus wechseln';
+        toggleIcon.textContent = isDark ? '🌙' : '☀️';
+        toggleLabel.textContent = isDark ? 'Nachtmodus' : 'Tagmodus';
+      }
+
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const preferredTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        applyTheme(preferredTheme);
+      } catch (error) {
+        applyTheme('light');
+      }
+
+      toggleButton.addEventListener('click', () => {
+        const nextTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
+        try {
+          localStorage.setItem('theme', nextTheme);
+        } catch (error) {
+          // Ignore storage errors in private browsing or restricted environments.
+        }
+        applyTheme(nextTheme);
+      });
+
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+
+      tabButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const targetTab = button.dataset.tab;
+
+          tabButtons.forEach((btn) => {
+            const isActive = btn === button;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-selected', String(isActive));
+          });
+
+          tabPanels.forEach((panel) => {
+            const isActive = panel.id === `panel-${targetTab}`;
+            panel.classList.toggle('active', isActive);
+          });
+        });
+      });
+
+      async function loadNews() {
+        const newsList = document.getElementById('newsList');
+        if (!newsList) return;
+
+        try {
+          const response = await fetch('assets/news.json');
+          if (!response.ok) {
+            throw new Error('News-Datei konnte nicht geladen werden');
+          }
+
+          const news = await response.json();
+
+          if (!Array.isArray(news) || news.length === 0) {
+            newsList.innerHTML = '<p>Es sind derzeit keine News verfügbar.</p>';
+            return;
+          }
+
+          newsList.innerHTML = news
+            .map(
+              (item) => `
+                <article class="news-card">
+                  <img src="${item.image}" alt="${item.title}" />
+                  <div class="news-body">
+                    <p class="news-date">${item.date}</p>
+                    <h3>${item.title}</h3>
+                    <p>${item.excerpt}</p>
+                  </div>
+                </article>
+              `
+            )
+            .join('');
+        } catch (error) {
+          newsList.innerHTML = '<p>News konnten nicht geladen werden.</p>';
+        }
+      }
+
+      loadNews();
+    </script>
   </body>
 </html>
